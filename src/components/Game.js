@@ -19,9 +19,9 @@ function Game() {
     let tempRow = []
     for (let j = 0; j < 10; j++) {
       //make an array of 10 0's
+      const isBomb = Math.random() < .15;
       tempRow.push({
-        bombs: j === 3 && i % 2 === 0 ? 'B' : 0,
-        //branching - j === 2 ? 3
+        bombs: isBomb ? 'B' : 0,
         id: i.toString() + j.toString(),
         row: i,
         col: j,
@@ -29,7 +29,6 @@ function Game() {
       });
     }
     initialBoard.push(tempRow)
-    //pus
   }
 
   

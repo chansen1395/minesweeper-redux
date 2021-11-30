@@ -11,6 +11,8 @@ by Connor Hansen and Nathan Fletcher
 * Click handler - test if hit/next to a bomb - update board 
 * Check win condition
 
+* Redux: 1. w/ hooks? 2. refactor to class? like lessons
+
 ## Stretch Ideas
 * Vary difficulty/bomb number/board size
 * - history
