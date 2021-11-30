@@ -24,33 +24,14 @@ function Game() {
         //branching - j === 2 ? 3
         id: i.toString() + j.toString(),
         row: i,
-        col: j
+        col: j,
+        hidden: true
       });
     }
     initialBoard.push(tempRow)
     //pus
   }
 
-  // get cells around cell (where cell.id === cellId)
-  // getNeighbors(state, cellId) {
-  //   const {grid} = state;
-  //   const {x, y} = this.getCell(state, cellId);
-  //   return [
-  //     this.getCellAt(state, {x: x - 1, y: y - 1}), // top left
-  //     this.getCellAt(state, {x: x, y: y - 1}), // top
-  //     this.getCellAt(state, {x: x + 1, y: y - 1}), // top right
-      
-  //     this.getCellAt(state, {x: x - 1, y: y}), // left
-  //     this.getCellAt(state, {x: x + 1, y: y}), // right
-      
-  //     this.getCellAt(state, {x: x - 1, y: y + 1}), // bottom left
-  //     this.getCellAt(state, {x: x, y: y + 1}), // bottom
-  //     this.getCellAt(state, {x: x + 1, y: y + 1}), // bottom right
-  //   ].filter((cell) => !!cell); // remove null cells (if target cell is on an edge)
-  // },
-
-  // for squares with a bomb, add a counter to adjacent existing non-bomb tiles?
-  
   
   for(let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
@@ -91,9 +72,34 @@ function Game() {
 
   const [board, setBoard] = React.useState(initialBoard);
 
+  function tileClick(tile) {
+    if(tile.bombs === "B") {
+      alert('bomb! you lose');
+    }
+    console.dir(tile)
+    //update the state - use setBoard, hidden property
+
+    //get a copy of board, get a copy of the object we want to update, update it, set the object into the copy of board, pass it into setBoard
+    const boardCopy =  [...board]; //destructuring - makes a shallow copy - the "higher level" elements still point to the same location in memory (supposed to be non-mutable state) - point is to not copy the whole thing - only the element/row/object you need for performance reasons
+    const rowCopy = [...board[tile.row]];
+    const tileCopy = {...board[tile.row][tile.col], hidden: false};
+    rowCopy[tile.row][tile.col] = tileCopy;
+    boardCopy[tile.row] = rowCopy;
+    setBoard(boardCopy);
+
+    //set some css class on the div to reveal the number/bomb
+    
+
+
+    // console.dir(event.target.value)
+    // alert("clicked tile" + tile.i + "," + tile.j);
+
+  }
+  //inline option: () => alert(`clicked tile ${tile.row}, ${tile.col}`)
+
   const boardJsx = board.map((row, i) => {
     return <div className="board-row" key={i}>{row.map(tile => {
-      return <div key={tile.id} className="tile">{tile.bombs}</div>
+      return <div key={tile.id} className="tile" onClick={() => tileClick(tile)}>{tile.bombs}</div>
     })}</div>
   })
 
