@@ -35,7 +35,7 @@ function Game() {
   
   for(let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
-      console.log(`i: ${i}, j: ${j}`);
+      // console.log(`i: ${i}, j: ${j}`);
       if(initialBoard[i][j].bombs !== 'B') {
         // Top row - k is the column num
         for(let k = j - 1; k <= j + 1; k++) {
@@ -81,25 +81,18 @@ function Game() {
 
     //get a copy of board, get a copy of the object we want to update, update it, set the object into the copy of board, pass it into setBoard
     const boardCopy =  [...board]; //destructuring - makes a shallow copy - the "higher level" elements still point to the same location in memory (supposed to be non-mutable state) - point is to not copy the whole thing - only the element/row/object you need for performance reasons
-    const rowCopy = [...board[tile.row]];
     const tileCopy = {...board[tile.row][tile.col], hidden: false};
-    rowCopy[tile.row][tile.col] = tileCopy;
-    boardCopy[tile.row] = rowCopy;
+    boardCopy[tile.row][tile.col] = tileCopy;
     setBoard(boardCopy);
 
     //set some css class on the div to reveal the number/bomb
-    
-
-
-    // console.dir(event.target.value)
-    // alert("clicked tile" + tile.i + "," + tile.j);
 
   }
   //inline option: () => alert(`clicked tile ${tile.row}, ${tile.col}`)
 
   const boardJsx = board.map((row, i) => {
     return <div className="board-row" key={i}>{row.map(tile => {
-      return <div key={tile.id} className="tile" onClick={() => tileClick(tile)}>{tile.bombs}</div>
+      return <div key={tile.id} className="tile" onClick={() => tileClick(tile)}>{tile.hidden ? "" : tile.bombs}</div>
     })}</div>
   })
 
