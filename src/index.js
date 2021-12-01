@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
 import { createStore } from 'redux';
-import boardReducer from './reducers/board-reducer';
+import rootReducer from './reducers';
 import { Provider } from 'react-redux';
 
 const initialBoard = [];
+
 for (let i = 0; i < 10; i++) {
   let tempRow = []
   for (let j = 0; j < 10; j++) {
@@ -51,7 +52,7 @@ for (let i = 0; i < 10; i++) {
   }
 }
 
-const store = createStore(boardReducer, { board: initialBoard });
+const store = createStore(rootReducer, { board: initialBoard, gameOver: false });
 
 ReactDOM.render(
   <Provider store={store}>
