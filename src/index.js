@@ -65,7 +65,24 @@ later: maybe add this piece of state: step: 0,
 */
 const moment = new Moment();
 const time = moment.format("LTS");
-const store = createStore(rootReducer, { history: [{ time, board: initialBoard }], gameOver: false });
+
+const persistedState = JSON.parse(window.localStorage.getItem('minesweeperState'));
+const store = createStore(rootReducer, persistedState || { history: [{ time, board: initialBoard }], gameOver: false });
+
+const debounce = (func, delay) => {
+  let debounceTimer
+  return function () {
+    const context = this
+    const args = arguments
+    clearTimeout(debounceTimer)
+    debounceTimer
+      = setTimeout(() => func.apply(context, args), delay)
+  }
+}
+
+store.subscribe(() => {
+  debounce(window.localStorage.setItem("minesweeperState", JSON.stringify(store.getState())), 2000)
+})
 /* move object refactor:
 6. side affects - wherever we were getting the board, we need to change how we access the board
 1. just have to change mapStateToProps?
