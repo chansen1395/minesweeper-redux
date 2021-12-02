@@ -1,6 +1,5 @@
 body {
   padding: 0; 
-  text-align: center;
 
 }
 
@@ -10,6 +9,7 @@ body {
   border: 1px solid black;
   padding: 0;
   float: left;
+  text-align: center;
 }
 
 .marked {
@@ -21,4 +21,8 @@ body {
   clear: both;
   content: "";
   display: table;
+}
+
+button {
+  margin-left: 10px;
 }

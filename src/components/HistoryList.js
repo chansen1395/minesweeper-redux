@@ -7,16 +7,21 @@ export default function HistoryList(props) {
   const handleHistoryClick = (move) => {
     const { dispatch } = props;
     // send type of action & any data to be passed
-    const action = { type: "SET_MOVE", move}
+    const action = { type: "SET_MOVE", move }
     dispatch(action)
-    
+
   }
 
   // const histJsx = 
 
-  return (<ol>
-      {props.history.map((board, i) => i === props.history.length - 1 ? null : <li key={i}><button onClick={() => handleHistoryClick(i + 1)}>{`Go to move ${i + 1}`}</button></li>)}
-    </ol>);
+  return (<ul>
+    {props.history.map((move, i) => { 
+      return  <li key={i}>
+        { i ? `Move ${i}` : 'Game Start'}: {move.time} 
+        { i === props.history.length - 1 ? null : <button onClick={() => handleHistoryClick(i + 1)}>Go</button> }
+      </li> 
+    })}
+  </ul>);
 
 }
 /*

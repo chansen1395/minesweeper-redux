@@ -3,6 +3,9 @@ import Moment from "moment";
 export default function boardReducer(history = [{ board:[], time:"" }], action) {
   // console.log(board)
   const boardCopy = JSON.parse(JSON.stringify(history[history.length - 1].board));
+  const moment = new Moment();
+  const time = moment.format("LTS");
+
   if (action.type === "SHOW_TILE") {
 
     //get a copy of board, get a copy of the object we want to update, update it, set the object into the copy of board, pass it into setBoard
@@ -13,8 +16,8 @@ export default function boardReducer(history = [{ board:[], time:"" }], action) 
     const tileCopy = { ...boardCopy[action.row][action.col], hidden: false, marked: false };
     // mark from mark_bomb, initial state structure, dispatch/action, reducer, display
     boardCopy[action.row][action.col] = tileCopy;
-
-    const historyCopy = [...history, { board: boardCopy, time: "4:35"}]
+    
+    const historyCopy = [...history, { board: boardCopy, time: time}]
     // this.setState({
     //   board: boardCopy
     // }); //2 syntax options - 1.arrow function that accesses old state and returns updated state object or 2.just the update state object (simpler cases)
@@ -32,7 +35,7 @@ export default function boardReducer(history = [{ board:[], time:"" }], action) 
     
     boardCopy[action.row][action.col] = tileCopy;
 
-    const historyCopy = [...history, {board: boardCopy, time: "5:21"}]
+    const historyCopy = [...history, {board: boardCopy, time }]
     // this.setState({
     //   board: boardCopy
     // }); //2 syntax options - 1.arrow function that accesses old state and returns updated state object or 2.just the update state object (simpler cases)
