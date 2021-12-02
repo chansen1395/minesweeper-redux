@@ -12,6 +12,11 @@ body {
   float: left;
 }
 
+.marked {
+  background-color: yellow;
+  color: yellow;
+}
+
 .board-row:after {
   clear: both;
   content: "";

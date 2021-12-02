@@ -3,7 +3,7 @@ import gameOverReducer from "./game-over-reducer";
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({ 
-    board: boardReducer,
+    history: boardReducer,
     gameOver: gameOverReducer
   })
 

@@ -18,7 +18,8 @@ for (let i = 0; i < 10; i++) {
       id: i.toString() + j.toString(),
       row: i,
       col: j,
-      hidden: true
+      hidden: true,
+      marked: false
     });
   }
   initialBoard.push(tempRow)
@@ -51,8 +52,17 @@ for (let i = 0; i < 10; i++) {
     }
   }
 }
+/*
+1. right here, initialize as a 3d array, change name: board => history
+get: 
+2. mapStateToProps
+set:
+3. boardReducer
+4. change action? nope
 
-const store = createStore(rootReducer, { board: initialBoard, gameOver: false });
+later: maybe add this piece of state: step: 0, 
+*/
+const store = createStore(rootReducer, { history: [initialBoard], gameOver: false });
 
 ReactDOM.render(
   <Provider store={store}>

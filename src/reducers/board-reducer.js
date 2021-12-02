@@ -1,8 +1,8 @@
 
 
-export default function boardReducer(board = [], action) {
-  console.log(board)
-  const boardCopy = [...board];
+export default function boardReducer(history = [[]], action) {
+  // console.log(board)
+  const boardCopy = JSON.parse(JSON.stringify(history[history.length - 1]));
   if (action.type === "SHOW_TILE") {
 
     //get a copy of board, get a copy of the object we want to update, update it, set the object into the copy of board, pass it into setBoard
@@ -10,14 +10,34 @@ export default function boardReducer(board = [], action) {
 
     // const { board } = state; //
 
-    const tileCopy = { ...board[action.row][action.col], hidden: false };
+    const tileCopy = { ...boardCopy[action.row][action.col], hidden: false, marked: false };
+    // mark from mark_bomb, initial state structure, dispatch/action, reducer, display
     boardCopy[action.row][action.col] = tileCopy;
 
+    const historyCopy = [...history, boardCopy]
     // this.setState({
     //   board: boardCopy
     // }); //2 syntax options - 1.arrow function that accesses old state and returns updated state object or 2.just the update state object (simpler cases)
-    return boardCopy;
+    return historyCopy;
+
+  } else if (action.type === "SET_MOVE") {
+
+    const newHistory = history.slice(0, action.move)
+    
+    return newHistory
+
+  } else if (action.type === "MARK") {
+    console.log("attempting to mark")
+    const tileCopy = { ...boardCopy[action.row][action.col], marked: !history[history.length - 1][action.row][action.col].marked };
+    
+    boardCopy[action.row][action.col] = tileCopy;
+
+    const historyCopy = [...history, boardCopy]
+    // this.setState({
+    //   board: boardCopy
+    // }); //2 syntax options - 1.arrow function that accesses old state and returns updated state object or 2.just the update state object (simpler cases)
+    return historyCopy;
   } else {
-    return board;
+    return history;
   }
 }
