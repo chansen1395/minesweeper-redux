@@ -62,8 +62,21 @@ set:
 
 later: maybe add this piece of state: step: 0, 
 */
-const store = createStore(rootReducer, { history: [initialBoard], gameOver: false });
+const store = createStore(rootReducer, { history: [{ time: "", board: initialBoard }], gameOver: false });
+/* move object refactor:
+6. side affects - wherever we were getting the board, we need to change how we access the board
+1. just have to change mapStateToProps?
+2. current reducer
 
+1. install, import moment.js
+2. click handler - more data in action
+3. logic in boardReducer
+4. initial state/state structure - done
+5. getting/using it - mapStateToProps - HistoryList object next to the button
+
+*/
+
+//startTime: "" row: null, col: null,
 ReactDOM.render(
   <Provider store={store}>
     <App />

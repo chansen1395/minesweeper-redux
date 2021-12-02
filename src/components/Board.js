@@ -55,7 +55,7 @@ export default function Board(props) {
 const mapStateToProps = state => {
   //return state ?
   return {
-    board: state.history[state.history.length - 1],
+    board: state.history[state.history.length - 1].board,
     gameOver: state.gameOver
   }
 }
